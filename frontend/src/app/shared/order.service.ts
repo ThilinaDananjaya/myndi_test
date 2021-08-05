@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
+import { Order } from './order.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OrderService {
+  formData: Order = new Order();
 
-  constructor() { }
+  constructor(public service: OrderService) {}
 }

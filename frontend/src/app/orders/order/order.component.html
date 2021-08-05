@@ -1,1 +1,13 @@
-<p>order works!</p>
+<form autocomplete="off" *ngIf="service.formData">
+  <!-- #form="ngForm" -->
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Invoice No.</label>
+        <input type="text" class="form-control" name="InvoiceNo" />
+        <!-- #OrderNo="ngModel" [(ngModel)]="service.formData.OrderNo" -->
+      </div>
+    </div>
+    <div class="col-md-6"></div>
+  </div>
+</form>

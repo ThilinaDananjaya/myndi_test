@@ -1,4 +1,4 @@
 export class User {
-  UserID: number;
-  Name: string;
+  UserId: number = 0;
+  UserName: string = '';
 }
