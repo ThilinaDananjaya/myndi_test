@@ -1,13 +1,114 @@
-<form autocomplete="off" *ngIf="service.formData">
-  <!-- #form="ngForm" -->
+<form
+  #form="ngForm"
+  autocomplete="off"
+  *ngIf="service.formData"
+  (submit)="onSubmit(form)"
+>
+  <input
+    type="hidden"
+    name="OrderId"
+    #OrderId="ngModel"
+    [(ngModel)]="service.formData.OrderId"
+  />
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">
         <label>Invoice No.</label>
-        <input type="text" class="form-control" name="InvoiceNo" />
-        <!-- #OrderNo="ngModel" [(ngModel)]="service.formData.OrderNo" -->
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">#</div>
+          </div>
+          <input
+            name="OrderNo"
+            #OrderNo="ngModel"
+            [(ngModel)]="service.formData.OrderNo"
+            class="form-control"
+            readonly
+          />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Name of the issued person</label>
+        <input
+          name="UserId"
+          #UserId="ngModel"
+          placeholder=" "
+          [(ngModel)]="service.formData.UserId"
+          class="form-control"
+          [class.is-invalid]="!isValid && service.formData.UserId == 0"
+        />
       </div>
     </div>
-    <div class="col-md-6"></div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Date</label>
+        <input
+          type="date"
+          name="Date"
+          #Date="ngModel"
+          [(ngModel)]="service.formData.Date"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label>Total Amount</label>
+
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Rs.</div>
+          </div>
+          <input
+            name="TotalAmount"
+            #TotalAmount="ngModel"
+            [(ngModel)]="service.formData.TotalAmount"
+            class="form-control"
+            readonly
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- order items table-->
+  <table class="table table-borderless">
+    <thead class="thead-light">
+      <th>Item No</th>
+      <th>Unit Price</th>
+      <th>Quantity</th>
+      <th>Total</th>
+      <th>
+        <a
+          class="btn btn-sm btn-success text-white"
+          (click)="AddOrEditOrderItem(null, service.formData.OrderId)"
+          ><i class="fa fa-plus"></i> Add Item</a
+        >
+      </th>
+    </thead>
+    <tbody>
+      <tr
+        *ngIf="service.orderItems.length == 0"
+        [class.text-danger]="!isValid && service.orderItems.length == 0"
+      >
+        <td class="font-italic text-center" colspan="5">No item selected.</td>
+      </tr>
+
+      <tr *ngFor="let item of service.orderItems; let i = index">
+        <td>{{ item.OrderItemId }}</td>
+        <td>{{ item.ItemId }}</td>
+        <td>{{ item.Quantity }}</td>
+        <td>{{ item.Total }}</td>
+        <td>
+          <a
+            class="btn btn-sm btn-info text-white"
+            (click)="AddOrEditOrderItem(i, service.formData.OrderId)"
+            ><i class="fa fa-pencil"></i
+          ></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="form-group">
+    <button type="submit" class="btn btn-dark">
+      <i class="fa fa-database"></i> Submit
+    </button>
   </div>
 </form>
