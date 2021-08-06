@@ -41,6 +41,7 @@
           #Price="ngModel"
           [(ngModel)]="formData.OrderItemId"
           class="form-control"
+          [class.is-invalid]="!isValid && formData.OrderItemId == 0"
         />
       </div>
     </div>

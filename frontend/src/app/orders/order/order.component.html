@@ -92,8 +92,8 @@
       </tr>
 
       <tr *ngFor="let item of service.orderItems; let i = index">
-        <td>{{ item.OrderItemId }}</td>
         <td>{{ item.ItemId }}</td>
+        <td>{{ item.OrderItemId }}</td>
         <td>{{ item.Quantity }}</td>
         <td>{{ item.Total }}</td>
         <td>
